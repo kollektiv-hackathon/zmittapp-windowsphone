@@ -100,6 +100,7 @@
     <Compile Include="DataModel\MenuItem.cs" />
     <Compile Include="DataModel\Restaurant.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
+    <Compile Include="DataModel\User.cs" />
     <Compile Include="ItemPage.xaml.cs">
       <DependentUpon>ItemPage.xaml</DependentUpon>
     </Compile>

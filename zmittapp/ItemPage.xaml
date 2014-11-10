@@ -32,45 +32,60 @@
 
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
             <TextBlock x:Uid="Header" Text="Zmittapp" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="{Binding Restaurant.Name}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,26.5" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+            <TextBlock Text="{Binding Restaurant.Name}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,0" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+            
+            <StackPanel  Orientation="Horizontal">
+                <TextBlock Text="Email: "/>
+                <TextBlock Text="{Binding Restaurant.Email}" />
+            </StackPanel>
+            
+            <StackPanel  Orientation="Horizontal">
+                <TextBlock Text="Phone: "/>
+                <TextBlock Text="{Binding Restaurant.Phone}" />
+            </StackPanel>
 
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Map: "/>
+                <!--<Maps:MapControl x:Name="RestaurantMap" Center="{Binding Restaurant.Position}" ZoomLevel="12" AllowDrop="False" Height="300" Width="Auto"/>-->
+                <TextBlock Text="{Binding Restaurant.Position}" />
+            </StackPanel>
         </StackPanel>
 
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <TextBlock Text="Email: "/>
-                <TextBlock Text="{Binding Restaurant.Email}" />
-            </StackPanel>
-            
+            <TextBlock Grid.Row="0" Text="Menues: "/>
+
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <TextBlock Text="Phone: "/>
-                <TextBlock Text="{Binding Restaurant.Phone}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <TextBlock Text="Map: "/>
-                <!--<Maps:MapControl x:Name="RestaurantMap" Center="{Binding Restaurant.Position}" ZoomLevel="12" AllowDrop="False" Height="300" Width="Auto"/>-->
-                <TextBlock Text="{Binding Restaurant.Position}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <TextBlock Text="Menues: "/>
-                <ListView
-                    ItemsSource="{Binding MenuItems}">
+                <ListView ItemsSource="{Binding MenuItems}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Appetizer}" />
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding Appetizer}" />
+                                <TextBlock Grid.Row="1" Text="{Binding MainCourse}" />
+                                <TextBlock Grid.Row="2" Text="{Binding Desert}" />
+                                <TextBlock Grid.Row="3" Text="{Binding Price}" />
+                            </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
         </Grid>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="SubscribeButton" x:Name="SubscribeButton" Label="Subscribe" Icon="Like" Command="{Binding Path=SubscribeCommand}" />
+            <AppBarButton x:Uid="UnSubscribeButton" x:Name="UnSubscribeButton" Label="Unsubscribe" Icon="Dislike" Command="{Binding Path=UnsubscribeCommand}" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -21,11 +21,10 @@ using Windows.UI.Xaml.Navigation;
 
 namespace zmittapp
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
+
     public sealed partial class App : Application
     {
+        private Guid _uid; 
         private TransitionCollection transitions;
 
         /// <summary>
@@ -137,5 +136,22 @@ namespace zmittapp
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
+        public Guid Uid
+        {
+            get
+            {
+                if (_uid != null)
+                {
+                    return _uid;
+                }
+                else
+                {
+                    return System.Guid.NewGuid(); 
+                }
+
+            }
+        }
+
     }
 }
