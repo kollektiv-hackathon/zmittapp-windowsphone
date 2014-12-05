@@ -24,16 +24,14 @@ using zmittapp.DataModel;
 
 namespace zmittapp
 {
-    public sealed partial class PivotPage : Page
+    public sealed partial class MainPage : Page
     {
-        private const string FirstGroupName = "FirstGroup";
-        private const string SecondGroupName = "SecondGroup";
-
+       
         private readonly NavigationHelper navigationHelper;
         private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
         private readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView("Resources");
 
-        public PivotPage()
+        public MainPage()
         {
             this.InitializeComponent();
 
@@ -76,7 +74,6 @@ namespace zmittapp
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroup = await SampleDataSource.GetGroupAsync("Group-1");
-            this.DefaultViewModel[FirstGroupName] = sampleDataGroup;
         }
 
         /// <summary>
@@ -97,23 +94,27 @@ namespace zmittapp
         /// </summary>
         private void AddAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            string groupName = this.pivot.SelectedIndex == 0 ? FirstGroupName : SecondGroupName;
-            var group = this.DefaultViewModel[groupName] as SampleDataGroup;
-            var nextItemId = group.Items.Count + 1;
-            var newItem = new SampleDataItem(
-                string.Format(CultureInfo.InvariantCulture, "Group-{0}-Item-{1}", this.pivot.SelectedIndex + 1, nextItemId),
-                string.Format(CultureInfo.CurrentCulture, this.resourceLoader.GetString("NewItemTitle"), nextItemId),
-                string.Empty,
-                string.Empty,
-                this.resourceLoader.GetString("NewItemDescription"),
-                string.Empty);
+            if (!Frame.Navigate(typeof(RestaurantIndexPage)))
+            {
+                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
+            }
+            //string groupName = this.pivot.SelectedIndex == 0 ? FirstGroupName : SecondGroupName;
+            //var group = this.DefaultViewModel[groupName] as SampleDataGroup;
+            //var nextItemId = group.Items.Count + 1;
+            //var newItem = new SampleDataItem(
+            //    string.Format(CultureInfo.InvariantCulture, "Group-{0}-Item-{1}", this.pivot.SelectedIndex + 1, nextItemId),
+            //    string.Format(CultureInfo.CurrentCulture, this.resourceLoader.GetString("NewItemTitle"), nextItemId),
+            //    string.Empty,
+            //    string.Empty,
+            //    this.resourceLoader.GetString("NewItemDescription"),
+            //    string.Empty);
 
-            group.Items.Add(newItem);
+            //group.Items.Add(newItem);
 
-            // Scroll the new item into view.
-            var container = this.pivot.ContainerFromIndex(this.pivot.SelectedIndex) as ContentControl;
-            var listView = container.ContentTemplateRoot as ListView;
-            listView.ScrollIntoView(newItem, ScrollIntoViewAlignment.Leading);
+            //// Scroll the new item into view.
+            //var container = this.pivot.ContainerFromIndex(this.pivot.SelectedIndex) as ContentControl;
+            //var listView = container.ContentTemplateRoot as ListView;
+            //listView.ScrollIntoView(newItem, ScrollIntoViewAlignment.Leading);
         }
 
         /// <summary>
@@ -122,10 +123,12 @@ namespace zmittapp
         private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var itemId = ((Restaurant)e.ClickedItem).Id;
-            if (!Frame.Navigate(typeof(ItemPage), itemId)){
+            if (!Frame.Navigate(typeof(RestaurantDetailPage), itemId)){
                 throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
             }
         }
+
+      
 
         /// <summary>
         /// Loads the content for the second pivot item when it is scrolled into view.
@@ -133,7 +136,6 @@ namespace zmittapp
         private async void SecondPivot_Loaded(object sender, RoutedEventArgs e)
         {
             var sampleDataGroup = await SampleDataSource.GetGroupAsync("Group-2");
-            this.DefaultViewModel[SecondGroupName] = sampleDataGroup;
         }
 
         #region NavigationHelper registration

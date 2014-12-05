@@ -17,15 +17,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using zmittapp.ViewModel;
+using zmittapp.DataModel;
+using Windows.ApplicationModel.Resources;
 
 namespace zmittapp
 {
-    public sealed partial class ItemPage : Page
+    public sealed partial class RestaurantIndexPage : Page
     {
         private readonly NavigationHelper navigationHelper;
         private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
+        private readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView("Resources");
 
-        public ItemPage()
+        public RestaurantIndexPage()
         {
             this.InitializeComponent();
 
@@ -47,18 +50,26 @@ namespace zmittapp
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var id = (int) e.NavigationParameter;
+            
 
-
-            //MVVM?
+            //MVVM? -> Relay Commmand
             var model = this.DataContext as MainViewModel;
-            await model.GetRestaurantById(id); 
+            await model.GetRestaurants(); 
                 
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             // TODO: Save the unique state of the page here.
+        }
+
+        private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var itemId = ((Restaurant)e.ClickedItem).Id;
+            if (!Frame.Navigate(typeof(RestaurantDetailPage), itemId))
+            {
+                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
+            }
         }
 
         #region NavigationHelper registration
