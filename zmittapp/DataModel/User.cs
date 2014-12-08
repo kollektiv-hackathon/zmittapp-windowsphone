@@ -27,12 +27,14 @@ namespace zmittapp.DataModel
         {
             get
             {
+                if (_subscriptions == null) _subscriptions = new ObservableCollection<Restaurant>(); 
+
                 return _subscriptions; 
             }
             set
             {
                 if (_subscriptions == value) return;
-
+              
                 _subscriptions = value;
 
             }

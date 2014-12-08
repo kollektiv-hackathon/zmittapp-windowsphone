@@ -51,7 +51,7 @@ namespace zmittapp
 
 
             //MVVM?
-            var model = this.DataContext as MainViewModel;
+            var model = this.DataContext as RestaurantDetailViewModel;
             await model.GetRestaurantById(id); 
                 
         }

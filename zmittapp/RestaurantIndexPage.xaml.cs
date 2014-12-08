@@ -51,9 +51,8 @@ namespace zmittapp
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             
-
             //MVVM? -> Relay Commmand
-            var model = this.DataContext as MainViewModel;
+            var model = this.DataContext as RestaurantIndexViewModel;
             await model.GetRestaurants(); 
                 
         }
