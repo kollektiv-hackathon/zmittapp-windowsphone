@@ -49,10 +49,8 @@ namespace zmittapp
         {
             var id = (int) e.NavigationParameter;
 
-
-            //MVVM?
-            var model = this.DataContext as RestaurantDetailViewModel;
-            await model.GetRestaurantById(id); 
+            var viewModel = (RestaurantDetailViewModel)DataContext;
+            viewModel.GetRestaurantByIdCommand.Execute(id); 
                 
         }
 

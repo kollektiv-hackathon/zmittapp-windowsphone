@@ -121,7 +121,7 @@
     <value>add</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
-    <value>MY APPLICATION</value>
+    <value>Zmittapp</value>
   </data>
   <data name="NavigationFailedExceptionMessage" xml:space="preserve">
     <value>Navigation failed.</value>

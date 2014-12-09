@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using zmittapp.DataModel;
+using zmittapp.ViewModel;
 
 // The Pivot Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 
@@ -72,8 +73,10 @@ namespace zmittapp
         /// session. The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var sampleDataGroup = await SampleDataSource.GetGroupAsync("Group-1");
+            
+            var viewModel = (MainViewModel )DataContext;
+            viewModel.UpdateSubscriptions.Execute(null); 
+
         }
 
         /// <summary>

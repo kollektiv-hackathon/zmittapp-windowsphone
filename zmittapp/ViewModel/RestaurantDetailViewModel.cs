@@ -18,21 +18,10 @@ namespace zmittapp.ViewModel
     {
 
         private Restaurant _restaurant;
+        private ICommand _getRestaurantCommand;
         private ICommand _subscribeCommand;
         private ICommand _unsubscribeCommand;
         
-        public User User {
-            get
-            {
-                return base.User; 
-            }
-            set
-            {
-                base.User = value; 
-            }
-
-        }
-
         public Restaurant Restaurant
         {
             get
@@ -65,15 +54,9 @@ namespace zmittapp.ViewModel
             }
         }
 
-        public async Task GetRestaurantById(int id)
+        private async Task GetRestaurantById(int id)
         {
-            //if (Restaurants.Any(o => o.Id == id))
-            //{
-            //    Restaurant = Restaurants.Where(o => o.Id == id).SingleOrDefault();
-            //}
-            //else
-            //{
-                using (HttpClient client = new HttpClient())
+         using (HttpClient client = new HttpClient())
                 {
 
                     client.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
@@ -81,13 +64,13 @@ namespace zmittapp.ViewModel
                     var result = await client.GetAsync(new Uri("http://api.zmittapp.ch/restaurants/" + id + "?_format=json"));
 
                     Restaurant = JsonConvert.DeserializeObject<Restaurant>(await result.Content.ReadAsStringAsync());
+                    RaiseCanExecuteChanged(); 
                 }
-            //}
-
+         
             await GetMenuesByRestaurantId(id);
         }
 
-        public async Task GetMenuesByRestaurantId(int id)
+        private async Task GetMenuesByRestaurantId(int id)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -99,9 +82,10 @@ namespace zmittapp.ViewModel
                     MenuItems = new ObservableCollection<MenuItem>(
                         JsonConvert.DeserializeObject<IEnumerable<MenuItem>>(await result.Content.ReadAsStringAsync()));
             }
+            
         }
 
-        public async Task PutSubscription()
+        private async Task PutSubscription()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -116,14 +100,15 @@ namespace zmittapp.ViewModel
                     result = await client.PutAsync(new Uri("http://api.zmittapp.ch/restaurants/" + Restaurant.Id + "/subscribe/" + User.Uid), null);
                 }
 
-                result.EnsureSuccessStatusCode(); 
+                result.EnsureSuccessStatusCode();
 
-                base.Subscriptions.Add(Restaurant);
+                base.User.Subscriptions.Add(Restaurant);
+                RaiseCanExecuteChanged();   
 
             }
         }
 
-        public async Task PutUnsubscription()
+        private async Task PutUnsubscription()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -137,14 +122,14 @@ namespace zmittapp.ViewModel
                     result = await client.PutAsync(new Uri("http://api.zmittapp.ch/restaurants/" + Restaurant.Id + "/subscribe/" + User.Uid), null);
                 }
                
-                result.EnsureSuccessStatusCode(); 
+                result.EnsureSuccessStatusCode();
 
-                base.Subscriptions.Remove(Restaurant);
-
+                base.User.Subscriptions.Remove(Restaurant);
+                RaiseCanExecuteChanged(); 
             }
         }
 
-        public async Task PostUser()
+        private async Task PostUser()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -155,6 +140,23 @@ namespace zmittapp.ViewModel
                 var resultUserPost = await client.PostAsync(new Uri("http://api.zmittapp.ch/user/"), content);
                 resultUserPost.EnsureSuccessStatusCode();
             }
+        }
+
+        public ICommand GetRestaurantByIdCommand
+        {
+            get
+            {
+                if (_getRestaurantCommand == null)
+                {
+                    _getRestaurantCommand = new RelayCommand<int>(GetRestaurantByIdExecute);
+                }
+                return _getRestaurantCommand;
+            }
+        }
+
+        private async void GetRestaurantByIdExecute(int id)
+        {
+            await GetRestaurantById(id); 
         }
 
         public ICommand SubscribeCommand
@@ -173,11 +175,11 @@ namespace zmittapp.ViewModel
         {
             get
             {
-                if (_subscribeCommand == null)
+                if (_unsubscribeCommand == null)
                 {
-                    _subscribeCommand = new RelayCommand(UnsubscribeExecute, CanSubscribe);
+                    _unsubscribeCommand = new RelayCommand(UnsubscribeExecute, CanUnsubscribe);
                 }
-                return _subscribeCommand;
+                return _unsubscribeCommand;
             }
         }
 
@@ -188,8 +190,8 @@ namespace zmittapp.ViewModel
 
         private bool CanSubscribe()
         {
-            //TODO: only when not subscribed yet 
-            return true;
+            if (Restaurant == null) return false; 
+            return base.User.Subscriptions.Where(o => o.Id == Restaurant.Id).SingleOrDefault() == null;
         }
 
         private async void UnsubscribeExecute()
@@ -197,6 +199,16 @@ namespace zmittapp.ViewModel
             await PutUnsubscription();
         }
 
+        private bool CanUnsubscribe()
+        {
+            return !CanSubscribe();
+        }
+
+        private void RaiseCanExecuteChanged()
+        {
+            ((RelayCommand)UnsubscribeCommand).RaiseCanExecuteChanged();
+            ((RelayCommand)SubscribeCommand).RaiseCanExecuteChanged();
+        }
     }
 
 }
