@@ -3,9 +3,9 @@
   <Identity Name="08896cfd-d229-4aca-b282-452f07da08a5" Publisher="CN=Lorenz" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="08896cfd-d229-4aca-b282-452f07da08a5" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>zmittapp</DisplayName>
-    <PublisherDisplayName>Lorenz</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <DisplayName>Zmittapp</DisplayName>
+    <PublisherDisplayName>Lorenz Wolf</PublisherDisplayName>
+    <Logo>Assets\Zmittap_icon_180.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.3.1</OSMinVersion>
@@ -19,7 +19,7 @@
       <m3:VisualElements DisplayName="zmittapp" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="zmittapp" ForegroundText="light" BackgroundColor="transparent">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
-        <m3:SplashScreen Image="Assets\SplashScreen.png" />
+        <m3:SplashScreen Image="Assets\Vers01_load-1.png" />
       </m3:VisualElements>
     </Application>
   </Applications>

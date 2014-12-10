@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:local="using:zmittapp"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
-  <Application.Resources>
+    <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:zmittapp.ViewModel" />
-  </Application.Resources>
+        <FontFamily x:Key="CustomFontBrandonLight">
+            /zmittapp;/Assets/Fonts/Brandon_light.otf#Brandon Grotesque Light
+        </FontFamily>
+        <FontFamily x:Key="CustomFontTangerineRegular">
+           /Assets/Fonts/Tangerine_Regular.ttf#Tangerine
+        </FontFamily>
+    </Application.Resources>
 </Application>

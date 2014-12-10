@@ -92,32 +92,28 @@ namespace zmittapp
             // TODO: Save the unique state of the page here.
         }
 
-        /// <summary>
-        /// Adds an item to the list when the app bar button is clicked.
-        /// </summary>
-        private void AddAppBarButton_Click(object sender, RoutedEventArgs e)
+        private void AllAppBarButton_Click(object sender, RoutedEventArgs e)
         {
             if (!Frame.Navigate(typeof(RestaurantIndexPage)))
             {
                 throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
             }
-            //string groupName = this.pivot.SelectedIndex == 0 ? FirstGroupName : SecondGroupName;
-            //var group = this.DefaultViewModel[groupName] as SampleDataGroup;
-            //var nextItemId = group.Items.Count + 1;
-            //var newItem = new SampleDataItem(
-            //    string.Format(CultureInfo.InvariantCulture, "Group-{0}-Item-{1}", this.pivot.SelectedIndex + 1, nextItemId),
-            //    string.Format(CultureInfo.CurrentCulture, this.resourceLoader.GetString("NewItemTitle"), nextItemId),
-            //    string.Empty,
-            //    string.Empty,
-            //    this.resourceLoader.GetString("NewItemDescription"),
-            //    string.Empty);
+        }
 
-            //group.Items.Add(newItem);
+        private void HomeAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Frame.Navigate(typeof(MainPage)))
+            {
+                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
+            }
+        }
 
-            //// Scroll the new item into view.
-            //var container = this.pivot.ContainerFromIndex(this.pivot.SelectedIndex) as ContentControl;
-            //var listView = container.ContentTemplateRoot as ListView;
-            //listView.ScrollIntoView(newItem, ScrollIntoViewAlignment.Leading);
+        private void LocationAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Frame.Navigate(typeof(RestaurantIndexPage)))
+            {
+                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
+            }
         }
 
         /// <summary>

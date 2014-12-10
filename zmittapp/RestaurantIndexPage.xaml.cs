@@ -47,6 +47,13 @@ namespace zmittapp
             get { return this.defaultViewModel; }
         }
 
+        private void HomeAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Frame.Navigate(typeof(MainPage)))
+            {
+                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
+            }
+        }
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {

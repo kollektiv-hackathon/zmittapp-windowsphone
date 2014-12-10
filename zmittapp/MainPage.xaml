@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:zmittapp.Data"
     mc:Ignorable="d"
-    DataContext="{Binding Main, Source={StaticResource Locator}}"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    DataContext="{Binding Main, Source={StaticResource Locator}}" 
+    FontFamily="{StaticResource CustomFontBrandonLight}">
     <Page.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition>
@@ -18,17 +18,63 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
-
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/Bg.png"></ImageBrush>
+    </Page.Background>
     <Grid>
-        <Pivot ItemsSource="{ Binding Subscriptions }" x:Uid="Pivot" Title="Zmittapp" x:Name="pivot" CommonNavigationTransitionInfo.IsStaggerElement="True">
+        <Pivot ItemsSource="{ Binding Subscriptions }" x:Uid="Pivot"  x:Name="pivot" CommonNavigationTransitionInfo.IsStaggerElement="True" >
+            <Pivot.Title>
+                <TextBlock FontFamily="{StaticResource CustomFontTangerineRegular}">
+                    <!--Zmittapp-->
+                </TextBlock>
+            </Pivot.Title>
             <Pivot.HeaderTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding Name}"></ContentControl>
+                    <!--<Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                           
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                            Source="/Assets/Curly.png" 
+                            Stretch="None" 
+                            Margin="5" 
+                            HorizontalAlignment="Left"
+                            Grid.Column="0">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="-0.4" ScaleY="0.4"/>
+                            </Image.RenderTransform>
+                        </Image>-->
+                        <ContentControl Margin="0" Grid.Column="1" Background="Aqua">
+                            <ContentControl.Content>
+                                <TextBlock 
+                                    Foreground="Firebrick" 
+                                    FontFamily="{StaticResource CustomFontTangerineRegular}"
+                                    FontSize="80"
+                                    Text="{Binding Name}" 
+                                    HorizontalAlignment="Center"
+                                    Margin="5" >
+                                </TextBlock>
+                            </ContentControl.Content>
+                        </ContentControl>
+                        <!--<Image 
+                            Source="/Assets/Curly.png" 
+                            Stretch="None" 
+                            Margin="5"
+                            HorizontalAlignment="Right"
+                            Grid.Column="2">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="0.4" ScaleY="0.4"></ScaleTransform>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>-->
                 </DataTemplate>
             </Pivot.HeaderTemplate>
-            <Pivot.ItemTemplate>
+            <Pivot.ItemTemplate >
                 <DataTemplate >
-                    <ListView ItemsSource="{Binding MenuItems}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" >
+                    <ListView ItemsSource="{Binding MenuItems}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" Margin="19,14.5,0,0" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -136,11 +182,13 @@
 
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:Uid="AddAppBarButton" x:Name="AddAppBarButton" Label="Neue Subscription" Icon="Add" Click="AddAppBarButton_Click" />
-            <CommandBar.SecondaryCommands>
+            <!--<AppBarButton x:Uid="HomeAppBarButton" x:Name="HomeButton" Label="Alle" Icon="Home" Click="HomeAppBarButton_Click" />-->
+            <AppBarButton x:Uid="LocationAppBarButton" x:Name="LocationButton" Label="Alle" Icon="Bookmarks" Click="AllAppBarButton_Click" />
+            <AppBarButton x:Uid="AllAppBarButton" x:Name="AllButton" Label="In der Nähe" Icon="MapPin" Click="LocationAppBarButton_Click" />
+            <!--<CommandBar.SecondaryCommands>
                 <AppBarButton x:Uid="SecondaryButton1" x:Name="SecondaryButton1" Label="secondary command 1" />
-                <AppBarButton x:Uid="SecondaryButton2" x:Name="SecondaryButton2" Label="secondary command 2" />
-            </CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="SecondaryButton2" x:Name="SecondaryButton2" Label="secondary command 2" />-->
+            <!--</CommandBar.SecondaryCommands>-->
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding RestaurantDetail, Source={StaticResource Locator}}"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    FontFamily="{StaticResource CustomFontBrandonLight}"
+    Foreground="Black">
     <Page.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition>
@@ -18,7 +19,10 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
-
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/Bg.png"></ImageBrush>
+    </Page.Background>
+    
     <Grid x:Name="LayoutRoot">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -31,8 +35,16 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock x:Uid="Header" Text="Zmittapp" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="{Binding Restaurant.Name}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,0" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+            <!--<TextBlock x:Uid="Header" Text="Zmittapp" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>-->
+            <!--<TextBlock Text="{Binding Restaurant.Name}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,0" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />-->
+            <TextBlock 
+                Foreground="Firebrick" 
+                FontFamily="{StaticResource CustomFontTangerineRegular}"
+                FontSize="80"
+                Text="{Binding Restaurant.Name}" 
+                HorizontalAlignment="Left"
+                Margin="5" >
+            </TextBlock>
             
             <StackPanel  Orientation="Horizontal">
                 <TextBlock Text="Email: "/>

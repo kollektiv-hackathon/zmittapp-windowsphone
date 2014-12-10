@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using zmittapp.ViewModel;
+using Windows.ApplicationModel.Resources;
 
 namespace zmittapp
 {
@@ -24,7 +25,7 @@ namespace zmittapp
     {
         private readonly NavigationHelper navigationHelper;
         private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
-
+       
         public RestaurantDetailPage()
         {
             this.InitializeComponent();
@@ -32,6 +33,7 @@ namespace zmittapp
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+             
         } 
 
         public NavigationHelper NavigationHelper
@@ -53,6 +55,8 @@ namespace zmittapp
             viewModel.GetRestaurantByIdCommand.Execute(id); 
                 
         }
+
+
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
