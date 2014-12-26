@@ -13,9 +13,11 @@ namespace zmittapp.ViewModel
 {
     public class RestaurantIndexViewModel : MainViewModel
     {
-        private ObservableCollection<Restaurant> _restaurants;
+        private List<Restaurant> _restaurants;
+        private List<Restaurant> _originalRestaurants;
+        private string _keyword; 
 
-        public ObservableCollection<Restaurant> Restaurants
+        public List<Restaurant> Restaurants
         {
             get
             {
@@ -30,6 +32,44 @@ namespace zmittapp.ViewModel
             }
         }
 
+        public List<Restaurant> OriginalRestaurants
+        {
+            get
+            {
+                return _originalRestaurants;
+            }
+            set
+            {
+                if (_originalRestaurants == value) return;
+
+                _originalRestaurants = value;
+                RaisePropertyChanged(() => OriginalRestaurants);
+            }
+        }
+
+        public string Keyword
+        {
+            get
+            {
+                return _keyword;
+            }
+            set
+            {
+                if (_keyword == value) return;
+
+                _keyword = value;
+
+                if (value == "" || value == null)
+                {
+                    Restaurants = OriginalRestaurants;
+                }
+                else
+                {
+                    Restaurants = OriginalRestaurants.Where(o => o.Name.ToUpper().Contains(value.ToUpper())).ToList(); 
+                }
+            }
+        }
+
         public async Task GetRestaurants()
         {
             using (HttpClient client = new HttpClient())
@@ -40,8 +80,9 @@ namespace zmittapp.ViewModel
                 var result = await client.GetAsync(new Uri("http://api.zmittapp.ch/restaurants/?_format=json"));
                 result.EnsureSuccessStatusCode();
 
-                Restaurants = new ObservableCollection<Restaurant>(
-                   JsonConvert.DeserializeObject<IEnumerable<Restaurant>>(await result.Content.ReadAsStringAsync()));
+                Restaurants =  JsonConvert.DeserializeObject<IEnumerable<Restaurant>>(await result.Content.ReadAsStringAsync()).ToList();
+                
+                OriginalRestaurants = Restaurants.ToList(); 
             }
         }
     }

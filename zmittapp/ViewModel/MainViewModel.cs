@@ -19,7 +19,6 @@ namespace zmittapp.ViewModel
     {
 
         private User _user; 
-
         
         public ObservableCollection<Restaurant> Subscriptions
         {
@@ -41,21 +40,6 @@ namespace zmittapp.ViewModel
             }
         }
 
-        //public User User
-        //{
-        //    get
-        //    {
-        //        return _user;
-        //    }
-        //    set
-        //    {
-        //        if (_user == value) return;
-
-        //        _user = value;
-        //       RaisePropertyChanged(() => User);
-        //    } 
-        //}
-
         public User User
         {
             get
@@ -75,6 +59,7 @@ namespace zmittapp.ViewModel
             SimpleIoc.Default.Register<User>(); 
             
             //GetSubsciptionsByUser();
+            
         }
 
         protected async Task GetSubsciptionsByUser()

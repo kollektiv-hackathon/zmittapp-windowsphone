@@ -9,6 +9,10 @@
     mc:Ignorable="d"
     DataContext="{Binding Main, Source={StaticResource Locator}}" 
     FontFamily="{StaticResource CustomFontBrandonLight}">
+	<Page.Resources>
+		<Thickness x:Key="PivotPortraitThemePadding">19,38,0,0</Thickness>
+		<Thickness x:Key="PivotLandscapeThemePadding">19,25,0,0</Thickness>
+      </Page.Resources>
     <Page.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition>
@@ -22,7 +26,11 @@
         <ImageBrush ImageSource="/Assets/Bg.png"></ImageBrush>
     </Page.Background>
     <Grid>
-        <Pivot ItemsSource="{ Binding Subscriptions }" x:Uid="Pivot"  x:Name="pivot" CommonNavigationTransitionInfo.IsStaggerElement="True" >
+        <Pivot ItemsSource="{ Binding Subscriptions }" 
+               x:Uid="Pivot"  
+               x:Name="pivot" 
+               CommonNavigationTransitionInfo.IsStaggerElement="True"
+               >
             <Pivot.Title>
                 <TextBlock FontFamily="{StaticResource CustomFontTangerineRegular}">
                     <!--Zmittapp-->
@@ -30,8 +38,8 @@
             </Pivot.Title>
             <Pivot.HeaderTemplate>
                 <DataTemplate>
-                    <!--<Grid>
-                        <Grid.ColumnDefinitions>
+                    <Grid>
+                    <!-- <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="40"/>
@@ -47,13 +55,12 @@
                                 <ScaleTransform ScaleX="-0.4" ScaleY="0.4"/>
                             </Image.RenderTransform>
                         </Image>-->
-                        <ContentControl Margin="0" Grid.Column="1" Background="Aqua">
+                        <ContentControl Margin="0" Grid.Column="1" >
                             <ContentControl.Content>
-                                <TextBlock 
-                                    Foreground="Firebrick" 
-                                    FontFamily="{StaticResource CustomFontTangerineRegular}"
-                                    FontSize="80"
+                                <TextBlock
                                     Text="{Binding Name}" 
+                                    FontFamily="{StaticResource CustomFontTangerineRegular}"                             
+                                    FontSize="80"
                                     HorizontalAlignment="Center"
                                     Margin="5" >
                                 </TextBlock>
@@ -68,8 +75,8 @@
                             <Image.RenderTransform>
                                 <ScaleTransform ScaleX="0.4" ScaleY="0.4"></ScaleTransform>
                             </Image.RenderTransform>
-                        </Image>
-                    </Grid>-->
+                        </Image>-->
+                    </Grid>
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate >

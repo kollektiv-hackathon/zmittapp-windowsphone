@@ -41,10 +41,14 @@
         <Grid Grid.Row="0" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBox Grid.Row="0" 
+                     Text="{Binding Keyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,20" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <ScrollViewer>
                 <ListView ItemsSource="{Binding Restaurants}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -67,6 +71,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+            </ScrollViewer>
             </StackPanel>
         </Grid>
     </Grid>

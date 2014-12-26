@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:local="using:zmittapp"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Primitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone">
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:zmittapp.ViewModel" />
         <FontFamily x:Key="CustomFontBrandonLight">
@@ -11,5 +12,11 @@
         <FontFamily x:Key="CustomFontTangerineRegular">
            /Assets/Fonts/Tangerine_Regular.ttf#Tangerine
         </FontFamily>
+        <SolidColorBrush
+            x:Key="PivotHeaderForegroundUnselectedBrush"
+            Color="Gray"/>
+        <SolidColorBrush
+            x:Key="PivotHeaderForegroundSelectedBrush"
+            Color="Firebrick"/>
     </Application.Resources>
 </Application>
