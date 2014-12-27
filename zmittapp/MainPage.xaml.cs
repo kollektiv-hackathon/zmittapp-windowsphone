@@ -94,7 +94,7 @@ namespace zmittapp
 
         private void AllAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!Frame.Navigate(typeof(RestaurantIndexPage)))
+            if (!Frame.Navigate(typeof(RestaurantAllPage)))
             {
                 throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
             }
@@ -110,7 +110,7 @@ namespace zmittapp
 
         private void LocationAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!Frame.Navigate(typeof(RestaurantIndexPage)))
+            if (!Frame.Navigate(typeof(RestaurantByLocationPage)))
             {
                 throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
             }

@@ -26,10 +26,22 @@ namespace zmittapp.DataModel
         public string Email { get; set; }
 
         [JsonProperty("lat")]
-        public float Lat { get; set; }
+        public double Lat { get; set; }
 
         [JsonProperty("lon")]
-        public float Lon { get; set; }
+        public double Lon { get; set; }
+
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
+        [JsonProperty("zip")]
+        public string Zip { get; set; }
+
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("country")]
+        public string Country { get; set; }
 
         public String Position
         {

@@ -18,7 +18,7 @@ namespace zmittapp.ViewModel
     public class MainViewModel : ViewModelBase
     {
 
-        private User _user; 
+        private User _user;
         
         public ObservableCollection<Restaurant> Subscriptions
         {

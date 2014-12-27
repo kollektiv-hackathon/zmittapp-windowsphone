@@ -8,7 +8,10 @@
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:zmittapp.ViewModel" />
         <FontFamily x:Key="CustomFontBrandonLight">
-            /zmittapp;/Assets/Fonts/Brandon_light.otf#Brandon Grotesque Light
+            /Assets/Fonts/Brandon_light.otf#Brandon Grotesque Light
+        </FontFamily>
+        <FontFamily x:Key="CustomFontBrandonBold">
+            /Assets/Fonts/Brandon_bld.otf#Brandon Grotesque Bold
         </FontFamily>
         <FontFamily x:Key="CustomFontTangerineRegular">
            /Assets/Fonts/Tangerine_Regular.ttf#Tangerine
@@ -24,5 +27,7 @@
             Color="Firebrick"/>
         <Converters:MenuItemsVisibilityConverter x:Key="MenuItemsVisibilityConverter" />
         <Converters:NoMenuItemsVisibilityConverter x:Key="NoMenuItemsVisibilityConverter" />
+        <Converters:StringFormatFullAddressConverter x:Key="StringFormatFullAddressConverter" />
+        <Converters:LocationDistanceConverter x:Key="LocationDistanceConverter" />
     </Application.Resources>
 </Application>

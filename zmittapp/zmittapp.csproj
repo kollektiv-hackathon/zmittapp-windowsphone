@@ -80,9 +80,13 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Page Include="RestaurantIndexPage.xaml">
+    <Page Include="RestaurantAllPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RestaurantByLocationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RestaurantDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -101,14 +105,19 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Converters\LocationDistanceConverter.cs" />
+    <Compile Include="Converters\StringFormatFullAddressConverter.cs" />
     <Compile Include="Converters\NoMenuItemsVisibilityConverter.cs" />
     <Compile Include="Converters\MenuItemsVisibilityConverter.cs" />
     <Compile Include="DataModel\MenuItem.cs" />
     <Compile Include="DataModel\Restaurant.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="DataModel\User.cs" />
-    <Compile Include="RestaurantIndexPage.xaml.cs">
-      <DependentUpon>RestaurantIndexPage.xaml</DependentUpon>
+    <Compile Include="RestaurantAllPage.xaml.cs">
+      <DependentUpon>RestaurantAllPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RestaurantByLocationPage.xaml.cs">
+      <DependentUpon>RestaurantByLocationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="RestaurantDetailPage.xaml.cs">
       <DependentUpon>RestaurantDetailPage.xaml</DependentUpon>
@@ -118,8 +127,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RestaurantByLocationViewModel.cs" />
     <Compile Include="ViewModel\RestaurantDetailViewModel.cs" />
-    <Compile Include="ViewModel\RestaurantIndexViewModel.cs" />
+    <Compile Include="ViewModel\RestaurantAllViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 
 
 namespace zmittapp.DataModel
@@ -12,7 +13,8 @@ namespace zmittapp.DataModel
     public class User 
     {
         private string _uid;
-        private ObservableCollection<Restaurant> _subscriptions; 
+        private ObservableCollection<Restaurant> _subscriptions;
+        private Geocoordinate _currentLocation; 
 
         public string Uid
         {
@@ -37,6 +39,20 @@ namespace zmittapp.DataModel
               
                 _subscriptions = value;
 
+            }
+        }
+
+        public Geocoordinate CurrentCoordination
+        {
+            get
+            {
+                return _currentLocation;
+            }
+            set
+            {
+                if (_currentLocation == value) return;
+
+                _currentLocation = value; 
             }
         }
     }

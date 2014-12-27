@@ -12,7 +12,8 @@ namespace zmittapp.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<RestaurantDetailViewModel>();
-            SimpleIoc.Default.Register<RestaurantIndexViewModel>();
+            SimpleIoc.Default.Register<RestaurantAllViewModel>();
+            SimpleIoc.Default.Register<RestaurantByLocationViewModel>();
         }
 
         public MainViewModel Main
@@ -31,18 +32,28 @@ namespace zmittapp.ViewModel
             }
         }
 
-        public RestaurantIndexViewModel RestaurantIndex
+        public RestaurantAllViewModel RestaurantAll
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<RestaurantIndexViewModel>();
+                return ServiceLocator.Current.GetInstance<RestaurantAllViewModel>();
+            }
+        }
+
+        public RestaurantByLocationViewModel RestaurantByLocation
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RestaurantByLocationViewModel>();
             }
         }
         
         public static void Cleanup()
         {
             SimpleIoc.Default.Unregister<MainViewModel>();
-            SimpleIoc.Default.Unregister<RestaurantDetailViewModel>(); 
+            SimpleIoc.Default.Unregister<RestaurantDetailViewModel>();
+            SimpleIoc.Default.Unregister<RestaurantByLocationViewModel>();
+            SimpleIoc.Default.Unregister<RestaurantAllViewModel>(); 
         }
     }
 }

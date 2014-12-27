@@ -1,14 +1,11 @@
-﻿using zmittapp.Common;
-using zmittapp.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Windows.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,35 +13,73 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using zmittapp.ViewModel;
-using zmittapp.DataModel;
+using Windows.Devices.Geolocation;
+using Windows.UI.Popups;
 using Windows.ApplicationModel.Resources;
+using zmittapp.DataModel;
+using zmittapp.ViewModel;
+using zmittapp.Common;
+
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace zmittapp
 {
-    public sealed partial class RestaurantIndexPage : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class RestaurantByLocationPage : Page
     {
-        private readonly NavigationHelper navigationHelper;
-        private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
         private readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView("Resources");
+        private readonly NavigationHelper navigationHelper;
 
-        public RestaurantIndexPage()
+        public RestaurantByLocationPage()
         {
             this.InitializeComponent();
 
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
-            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-        } 
-
-        public NavigationHelper NavigationHelper
-        {
-            get { return this.navigationHelper; }
         }
 
-        public ObservableDictionary DefaultViewModel
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            get { return this.defaultViewModel; }
+            var settings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            var value = settings.Values["LocationConsent"];
+
+            if (value == null || !((bool)value))
+            {
+                MessageDialog messageDialog = new MessageDialog("Darf zmittapp Ihre Position abfragen?", "GPS");
+
+                messageDialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+                messageDialog.Commands.Add(new UICommand("Abbrechen", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+
+                messageDialog.DefaultCommandIndex = 0;
+                messageDialog.CancelCommandIndex = 1;
+
+                await messageDialog.ShowAsync();
+            }
+
+            
+            ////MVVM? -> Relay Commmand
+            var model = this.DataContext as RestaurantByLocationViewModel;
+            await model.GetCurrentLocation();
+            await model.GetRestaurants(); 
+
+        }
+
+        private void CommandInvokedHandler(IUICommand command)
+        {
+            // Display message showing the label of the command that was invoked
+            var settings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (command.Label == "OK")
+            {
+                settings.Values["LocationConsent"] = true; 
+            }
+            else
+            {
+                settings.Values["LocationConsent"] = false; 
+                Frame.Navigate(typeof(MainPage));
+            }
         }
 
         private void HomeAppBarButton_Click(object sender, RoutedEventArgs e)
@@ -53,20 +88,6 @@ namespace zmittapp
             {
                 throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
             }
-        }
-
-        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            
-            //MVVM? -> Relay Commmand
-            var model = this.DataContext as RestaurantIndexViewModel;
-            await model.GetRestaurants(); 
-                
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            // TODO: Save the unique state of the page here.
         }
 
         private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
@@ -93,14 +114,15 @@ namespace zmittapp
         /// </summary>
         /// <param name="e">Provides data for navigation methods and event
         /// handlers that cannot cancel the navigation request.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            this.navigationHelper.OnNavigatedTo(e);
-        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedFrom(e);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedTo(e);
         }
 
         #endregion

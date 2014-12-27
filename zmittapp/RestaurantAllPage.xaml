@@ -1,0 +1,105 @@
+﻿<Page xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps" 
+    x:Class="zmittapp.RestaurantAllPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:zmittapp"
+    xmlns:data="using:zmittapp.Data"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding RestaurantAll, Source={StaticResource Locator}}"
+    FontFamily="{StaticResource CustomFontBrandonLight}"
+    Foreground="Black">
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/Bg.png"></ImageBrush>
+    </Page.Background>
+    <Grid x:Name="LayoutRoot">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--<StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock x:Uid="Header" Text="Zmittapp" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="Restaurants" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,0" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+        </StackPanel>-->
+
+        <Grid Grid.Row="0" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" 
+                     Text="{Binding Keyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,20" PlaceholderText="Suche" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <ScrollViewer>
+                <ListView ItemsSource="{Binding Restaurants}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" VerticalContentAlignment="Center" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid >
+                                    <Grid Grid.Row="0" Canvas.ZIndex="1" VerticalAlignment="Center"  >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="320"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                    <TextBlock 
+                                        Grid.Row="0" 
+                                        Grid.Column="0" 
+                                        Text="{Binding Name}"
+                                        FontFamily="{StaticResource CustomFontBrandonBold}"
+                                        Foreground="Black"
+                                        FontSize="22" 
+                                        Margin="15,0,15,5"
+                                        />
+                                    <TextBlock 
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="{Binding Converter={StaticResource StringFormatFullAddressConverter}}"
+                                        Margin="15,0" 
+                                        FontFamily="{StaticResource CustomFontBrandonBold}" 
+                                        FontSize="15" 
+                                        />
+                                        <Image
+                                        Grid.RowSpan="2"
+                                        Grid.Column="1"
+                                        Source="/Assets/Curly.png"
+                                        Height="50"
+                                        />
+                                    </Grid>
+                                <Image Grid.Row="0" Margin="5,0" Source="/Assets/cell@3x.png" VerticalAlignment="Top" Width="350" />
+                                </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="HomeAppBarButton" x:Name="HomeButton" Label="Home" Icon="Home" Click="HomeAppBarButton_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
