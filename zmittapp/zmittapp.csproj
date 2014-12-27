@@ -105,7 +105,7 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Converters\LocationDistanceConverter.cs" />
+    <Compile Include="Converters\StringFormatDistanceToLocation.cs" />
     <Compile Include="Converters\StringFormatFullAddressConverter.cs" />
     <Compile Include="Converters\NoMenuItemsVisibilityConverter.cs" />
     <Compile Include="Converters\MenuItemsVisibilityConverter.cs" />

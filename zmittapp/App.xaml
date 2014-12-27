@@ -28,6 +28,6 @@
         <Converters:MenuItemsVisibilityConverter x:Key="MenuItemsVisibilityConverter" />
         <Converters:NoMenuItemsVisibilityConverter x:Key="NoMenuItemsVisibilityConverter" />
         <Converters:StringFormatFullAddressConverter x:Key="StringFormatFullAddressConverter" />
-        <Converters:LocationDistanceConverter x:Key="LocationDistanceConverter" />
+        <Converters:StringFormatDistanceToLocation x:Key="StringFormatDistanceToLocation" />
     </Application.Resources>
 </Application>

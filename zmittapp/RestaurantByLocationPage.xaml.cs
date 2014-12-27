@@ -59,12 +59,14 @@ namespace zmittapp
                 await messageDialog.ShowAsync();
             }
 
-            
-            ////MVVM? -> Relay Commmand
+            //TODO: -> Relay Commmand's
+            this.pg.IsIndeterminate = true; 
             var model = this.DataContext as RestaurantByLocationViewModel;
             await model.GetCurrentLocation();
-            await model.GetRestaurants(); 
-
+            await model.GetRestaurants();
+            model.FilterRestaurantByLocation();
+            this.pg.IsIndeterminate = false; 
+            
         }
 
         private void CommandInvokedHandler(IUICommand command)

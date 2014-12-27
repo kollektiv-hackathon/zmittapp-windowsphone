@@ -12,7 +12,8 @@ namespace zmittapp.DataModel
     public class Restaurant
     {
         private ObservableCollection<MenuItem> _menues;
-        
+        private double _currentDistanceToLocation; 
+
         [JsonProperty("id")]
         public int Id { get; set; }
 
@@ -63,6 +64,12 @@ namespace zmittapp.DataModel
 
                 _menues = value;
             }
+        }
+
+        public double CurrentDistanceToLocation
+        {
+            get;
+            set; 
         }
 
 

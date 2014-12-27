@@ -37,7 +37,7 @@
             <TextBlock x:Uid="Header" Text="Zmittapp" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
             <TextBlock Text="Restaurants" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,0" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
         </StackPanel>-->
-
+        <ProgressBar x:Name="pg" Margin="10" Height="15" IsIndeterminate="False"   />
         <Grid Grid.Row="0" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -73,7 +73,7 @@
                                         <TextBlock 
                                         Grid.Row="1"
                                         Grid.Column="0"
-                                        Text="{Binding Converter={StaticResource LocationDistanceConverter}}"
+                                        Text="{Binding Converter={StaticResource StringFormatDistanceToLocation}}"
                                         Margin="15,0" 
                                         FontFamily="{StaticResource CustomFontBrandonBold}" 
                                         FontSize="15" 
