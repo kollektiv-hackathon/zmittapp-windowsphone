@@ -39,6 +39,10 @@
             <Pivot.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
                     <!-- <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
                             <ColumnDefinition Width="*"/>
@@ -55,14 +59,16 @@
                                 <ScaleTransform ScaleX="-0.4" ScaleY="0.4"/>
                             </Image.RenderTransform>
                         </Image>-->
-                        <ContentControl Margin="0" Grid.Column="1" >
+                        <ContentControl Margin="0" Grid.Row="0" Background="Black" HorizontalAlignment="Left" VerticalAlignment="Top"  >
                             <ContentControl.Content>
                                 <TextBlock
+                                    Grid.Row="0"
                                     Text="{Binding Name}" 
                                     FontFamily="{StaticResource CustomFontTangerineRegular}"                             
                                     FontSize="80"
-                                    HorizontalAlignment="Center"
-                                    Margin="5" >
+                                    Margin="10" 
+                                    Height="80" 
+                                    VerticalAlignment="Top">
                                 </TextBlock>
                             </ContentControl.Content>
                         </ContentControl>
@@ -81,112 +87,35 @@
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate >
                 <DataTemplate >
-                    <ListView ItemsSource="{Binding MenuItems}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" Margin="19,14.5,0,0" >
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="{Binding Appetizer}" />
-                                    <TextBlock Grid.Row="1" Text="{Binding MainCourse}" />
-                                    <TextBlock Grid.Row="2" Text="{Binding Desert}" />
-                                    <TextBlock Grid.Row="3" Text="{Binding Price}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                        <Image Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
+                        <ListView ItemsSource="{Binding MenuItems}" Visibility="{Binding MenuItems, Converter={StaticResource MenuItemsVisibilityConverter}}"  IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" Margin="19,14.5,0,0" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="1" Text="{Binding Appetizer}" />
+                                        <TextBlock Grid.Row="2" Text="{Binding MainCourse}" />
+                                        <TextBlock Grid.Row="3" Text="{Binding Desert}" />
+                                        <TextBlock Grid.Row="4" Text="{Binding Price}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <TextBlock HorizontalAlignment="Center" Text="Keine Menüs gefunden" FontFamily="{StaticResource CustomFontBrandonLight}" Foreground="Gray" Margin="20"  Visibility="{Binding MenuItems, Converter={StaticResource NoMenuItemsVisibilityConverter}}"/>
+                        <Image Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
+                    </StackPanel>
                 </DataTemplate>
             </Pivot.ItemTemplate>
         </Pivot>
-        <!--<Pivot x:Uid="Pivot" Title="Zmittapp" x:Name="pivot" CommonNavigationTransitionInfo.IsStaggerElement="True">
-            
-            <PivotItem
-                x:Uid="PivotItem1" 
-                Margin="19,14.5,0,0"
-                Header="Restaurants"
-                DataContext="{Binding Main, Source={StaticResource Locator}}"
-                CommonNavigationTransitionInfo.IsStaggerElement="True">
-                <ListView
-                    ItemsSource="{Binding Restaurants}"
-                    IsItemClickEnabled="True"
-                    ItemClick="ItemView_ItemClick"
-                    ContinuumNavigationTransitionInfo.ExitElementContainer="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </PivotItem>
-
-            <PivotItem
-                x:Uid="PivotItem2"
-                Margin="19,14.5,0,0"
-                Header="Subscriptions"
-                DataContext="{Binding SecondGroup}"
-                d:DataContext="{Binding Groups[1], Source={d:DesignData Source=/DataModel/SampleData.json, Type=data:SampleDataSource}}">
-                <ListView
-                    ItemsSource="{Binding Items}"
-                    IsItemClickEnabled="True"
-                    ItemClick="ItemView_ItemClick"
-                    Loaded="SecondPivot_Loaded"
-                    ContinuumNavigationTransitionInfo.ExitElementContainer="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,9.5">
-                                <TextBlock
-                                    Text="{Binding Title}"
-                                    Pivot.SlideInAnimationGroup="1"
-                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
-                                    Style="{StaticResource ListViewItemTextBlockStyle}"/>
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Pivot.SlideInAnimationGroup="2"
-                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
-                                    Style="{StaticResource ListViewItemContentTextBlockStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </PivotItem>
-
-            <PivotItem
-                x:Uid="PivotItem3"
-                Margin="19,14.5,0,0"
-                Header="Settings"
-                DataContext="{Binding SecondGroup}"
-                d:DataContext="{Binding Groups[1], Source={d:DesignData Source=/DataModel/SampleData.json, Type=data:SampleDataSource}}">
-                <ListView
-                    ItemsSource="{Binding Items}"
-                    IsItemClickEnabled="True"
-                    ItemClick="ItemView_ItemClick"
-                    Loaded="SecondPivot_Loaded"
-                    ContinuumNavigationTransitionInfo.ExitElementContainer="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,9.5">
-                                <TextBlock
-                                    Text="{Binding Title}"
-                                    Pivot.SlideInAnimationGroup="1"
-                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
-                                    Style="{StaticResource ListViewItemTextBlockStyle}"/>
-                                <TextBlock
-                                    Text="{Binding Description}"
-                                    Pivot.SlideInAnimationGroup="2"
-                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
-                                    Style="{StaticResource ListViewItemContentTextBlockStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </PivotItem>
-        </Pivot>-->
     </Grid>
-
     <Page.BottomAppBar>
         <CommandBar>
             <!--<AppBarButton x:Uid="HomeAppBarButton" x:Name="HomeButton" Label="Alle" Icon="Home" Click="HomeAppBarButton_Click" />-->

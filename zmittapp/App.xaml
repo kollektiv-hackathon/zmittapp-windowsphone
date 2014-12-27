@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:local="using:zmittapp"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:Primitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone">
+             xmlns:Primitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone"
+             xmlns:Converters="using:zmittapp.Converters">
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:zmittapp.ViewModel" />
         <FontFamily x:Key="CustomFontBrandonLight">
@@ -12,11 +13,16 @@
         <FontFamily x:Key="CustomFontTangerineRegular">
            /Assets/Fonts/Tangerine_Regular.ttf#Tangerine
         </FontFamily>
+        <FontFamily x:Key="CustomFontBrandonMed">
+            /Assets/Fonts/Brandon_med.otf#Brandon Grotesque Medium
+        </FontFamily>
         <SolidColorBrush
             x:Key="PivotHeaderForegroundUnselectedBrush"
             Color="Gray"/>
         <SolidColorBrush
             x:Key="PivotHeaderForegroundSelectedBrush"
             Color="Firebrick"/>
+        <Converters:MenuItemsVisibilityConverter x:Key="MenuItemsVisibilityConverter" />
+        <Converters:NoMenuItemsVisibilityConverter x:Key="NoMenuItemsVisibilityConverter" />
     </Application.Resources>
 </Application>

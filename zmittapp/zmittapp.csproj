@@ -101,6 +101,8 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Converters\NoMenuItemsVisibilityConverter.cs" />
+    <Compile Include="Converters\MenuItemsVisibilityConverter.cs" />
     <Compile Include="DataModel\MenuItem.cs" />
     <Compile Include="DataModel\Restaurant.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
@@ -126,8 +128,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\cell%403x.png" />
     <Content Include="Assets\Curly.png" />
+    <Content Include="Assets\divider%403x.png" />
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\separatorLine%403x.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />
