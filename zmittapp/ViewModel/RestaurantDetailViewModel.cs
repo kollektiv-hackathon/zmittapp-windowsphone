@@ -37,7 +37,7 @@ namespace zmittapp.ViewModel
             }
         }
 
-        public ObservableCollection<MenuItem> MenuItems
+        public List<MenuItem> MenuItems
         {
             get
             {
@@ -54,6 +54,7 @@ namespace zmittapp.ViewModel
             }
         }
 
+        //TODO: -> ServiceProxy
         private async Task GetRestaurantById(int id)
         {
          using (HttpClient client = new HttpClient())
@@ -70,6 +71,7 @@ namespace zmittapp.ViewModel
             await GetMenuesByRestaurantId(id);
         }
 
+        //TODO: -> ServiceProxy
         private async Task GetMenuesByRestaurantId(int id)
         {
             using (HttpClient client = new HttpClient())
@@ -79,12 +81,13 @@ namespace zmittapp.ViewModel
                 var result = await client.GetAsync(new Uri("http://api.zmittapp.ch/restaurants/" + id + "/menuitems?_format=json"));
 
                 if (Restaurant != null)
-                    MenuItems = new ObservableCollection<MenuItem>(
+                    MenuItems = new List<MenuItem>(
                         JsonConvert.DeserializeObject<IEnumerable<MenuItem>>(await result.Content.ReadAsStringAsync()));
             }
             
         }
 
+        //TODO: -> ServiceProxy
         private async Task PutSubscription()
         {
             using (HttpClient client = new HttpClient())
@@ -108,6 +111,7 @@ namespace zmittapp.ViewModel
             }
         }
 
+        //TODO: -> ServiceProxy
         private async Task PutUnsubscription()
         {
             using (HttpClient client = new HttpClient())
@@ -129,6 +133,7 @@ namespace zmittapp.ViewModel
             }
         }
 
+        //TODO: -> ServiceProxy
         private async Task PostUser()
         {
             using (HttpClient client = new HttpClient())

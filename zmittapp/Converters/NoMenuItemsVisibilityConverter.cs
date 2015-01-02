@@ -16,7 +16,7 @@ namespace zmittapp.Converters
         {
             if (value == null) return value;
 
-            ObservableCollection<MenuItem> menus = value as ObservableCollection<MenuItem>;
+            List<MenuItem> menus = value as List<MenuItem>;
 
             return (menus.Count == 0) ? Visibility.Visible : Visibility.Collapsed; 
             

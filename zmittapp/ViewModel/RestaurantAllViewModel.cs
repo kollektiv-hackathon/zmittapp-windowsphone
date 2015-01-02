@@ -70,6 +70,7 @@ namespace zmittapp.ViewModel
             }
         }
 
+        //TODO: -> ServiceProxy
         public async Task GetRestaurants()
         {
             using (HttpClient client = new HttpClient())

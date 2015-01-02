@@ -48,8 +48,8 @@
                      Text="{Binding Keyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Margin="0,0,0,20" PlaceholderText="Suche" />
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <ScrollViewer>
-                <ListView ItemsSource="{Binding Restaurants}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" VerticalContentAlignment="Center" >
+             <ScrollViewer Height="500" VerticalScrollBarVisibility="Auto">
+               <ListView VerticalContentAlignment="Top" ItemsSource="{Binding Restaurants}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid >

@@ -87,31 +87,44 @@
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate >
                 <DataTemplate >
-                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                    <StackPanel Grid.Row="1" Orientation="Vertical" >
                         <Image Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
-                        <ListView ItemsSource="{Binding MenuItems}" Visibility="{Binding MenuItems, Converter={StaticResource MenuItemsVisibilityConverter}}"  IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" Margin="19,14.5,0,0" >
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="50" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="1" Text="{Binding Appetizer}" />
-                                        <TextBlock Grid.Row="2" Text="{Binding MainCourse}" />
-                                        <TextBlock Grid.Row="3" Text="{Binding Desert}" />
-                                        <TextBlock Grid.Row="4" Text="{Binding Price}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                        <ScrollViewer Height="450" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl
+                            HorizontalContentAlignment="Center" 
+                            ItemsSource="{Binding MenuItems}" 
+                            Visibility="{Binding MenuItems, Converter={StaticResource MenuItemsVisibilityConverter}}"  
+                            Width="Auto"
+                            Background="Transparent">
+                                <ItemsControl.ItemTemplate>
+                                    
+                                    <DataTemplate>
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="20" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="20" />
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="20"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock  Grid.Row="0" Text="{Binding Appetizer}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5"/>
+                                            <Image      Grid.Row="1" Margin="5" Source="/Assets/divider@3x.png" VerticalAlignment="Top"  Stretch="Uniform" />
+                                            <TextBlock  Grid.Row="2" Text="{Binding MainCourse}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5" />
+                                            <Image      Grid.Row="3" Margin="5" Source="/Assets/divider@3x.png" VerticalAlignment="Top"  Stretch="Uniform" />
+                                            <TextBlock  Grid.Row="4" Text="{Binding Desert}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5" />
+                                            <Image      Grid.Row="5" Margin="5" Source="/Assets/divider@3x.png" VerticalAlignment="Top"  Stretch="Uniform" />
+                                            <TextBlock  Grid.Row="6" Text="{Binding Price}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5" />
+                                            <Image      Grid.Row="7" Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                         <TextBlock HorizontalAlignment="Center" Text="Keine Menüs gefunden" FontFamily="{StaticResource CustomFontBrandonLight}" Foreground="Gray" Margin="20"  Visibility="{Binding MenuItems, Converter={StaticResource NoMenuItemsVisibilityConverter}}"/>
-                        <Image Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
-                    </StackPanel>
+                        </StackPanel>
                 </DataTemplate>
             </Pivot.ItemTemplate>
         </Pivot>

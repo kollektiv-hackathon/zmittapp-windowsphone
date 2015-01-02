@@ -20,13 +20,13 @@ namespace zmittapp.ViewModel
 
         private User _user;
         
-        public ObservableCollection<Restaurant> Subscriptions
+        public List<Restaurant> Subscriptions
         {
             get
             {
                 if (User.Subscriptions == null)
                 {
-                    User.Subscriptions = new ObservableCollection<Restaurant>();
+                    User.Subscriptions = new List<Restaurant>();
                     User.Subscriptions.Add(new Restaurant { Name = "Keine Subscriptions",  });
                 }
                 return User.Subscriptions;
@@ -52,42 +52,48 @@ namespace zmittapp.ViewModel
             }
         }
 
-        public MainViewModel()
+        public ServiceProxy ServiceProxy
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            User = new User();
-            SimpleIoc.Default.Register<User>(); 
-            
-            //GetSubsciptionsByUser();
-            
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ServiceProxy>(); 
+            }
+            set
+            {
+                SimpleIoc.Default.Register<ServiceProxy>(); 
+            }
         }
 
-        protected async Task GetSubsciptionsByUser()
+        public MainViewModel()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
-
-                var result = await client.GetAsync(new Uri(String.Format("http://api.zmittapp.ch/user/{0}/subscriptions?_format=json", User.Uid)));
-                result.EnsureSuccessStatusCode();
-
-                Subscriptions = new ObservableCollection<Restaurant>(
-                   JsonConvert.DeserializeObject<IEnumerable<Restaurant>>(await result.Content.ReadAsStringAsync()));
-                User.Subscriptions = Subscriptions; 
-            }
+            //TODO: refactor
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            SimpleIoc.Default.Register<User>();
+            SimpleIoc.Default.Register<ServiceProxy>(); 
         }
 
         public ICommand UpdateSubscriptions
         {
             get{
-                return new RelayCommand(UpdatedSubscriptions); 
+                return new RelayCommand(UpdateSubscriptionsFunc); 
             }
-
         }
 
-        private void UpdatedSubscriptions()
+        private async void UpdateSubscriptionsFunc()
         {
-            GetSubsciptionsByUser(); 
+            var restaurants = new List<Restaurant>(
+                JsonConvert.DeserializeObject<IEnumerable<Restaurant>>(
+                await ServiceProxy.GetSubsciptionsByUserAsync(User.Uid)));
+           
+            foreach(var restaurant in restaurants){
+                var task2 = await ServiceProxy.GetMenuesByRestaurantId(restaurant.Id);
+                restaurant.MenuItems = new List<MenuItem>(JsonConvert.DeserializeObject<IEnumerable<MenuItem>>(task2));
+            }
+
+            //TODO: Refactor
+            Subscriptions = restaurants;
+            User.Subscriptions = restaurants; 
+            
         }        
     }
 }

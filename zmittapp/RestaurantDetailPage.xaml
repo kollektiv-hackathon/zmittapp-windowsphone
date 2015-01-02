@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding RestaurantDetail, Source={StaticResource Locator}}"
-    FontFamily="{StaticResource CustomFontBrandonLight}"
     Foreground="Black">
     <Page.Transitions>
         <TransitionCollection>
@@ -76,11 +75,17 @@
 
             <StackPanel Grid.Row="1" Orientation="Vertical">
                 <Image Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
-                <ListView ItemsSource="{Binding MenuItems}" Visibility="{Binding MenuItems, Converter={StaticResource MenuItemsVisibilityConverter}}" VerticalAlignment="Center" HorizontalContentAlignment="Center">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ScrollViewer>
-                            <Grid >
+                <ScrollViewer Height="450" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl
+                            HorizontalContentAlignment="Center" 
+                            ItemsSource="{Binding MenuItems}" 
+                            Visibility="{Binding MenuItems, Converter={StaticResource MenuItemsVisibilityConverter}}"  
+                            Width="Auto"
+                            Background="Transparent">
+                        <ItemsControl.ItemTemplate>
+
+                            <DataTemplate>
+                                <Grid >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="20" />
@@ -89,22 +94,23 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="20"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock  Grid.Row="0" Text="{Binding Appetizer}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" TextAlignment="Center" Margin="5"/>
+                                    <TextBlock  Grid.Row="0" Text="{Binding Appetizer}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5"/>
                                     <Image      Grid.Row="1" Margin="5" Source="/Assets/divider@3x.png" VerticalAlignment="Top"  Stretch="Uniform" />
-                                    <TextBlock  Grid.Row="2" Text="{Binding MainCourse}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" TextAlignment="Center" Margin="5" />
+                                    <TextBlock  Grid.Row="2" Text="{Binding MainCourse}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5" />
                                     <Image      Grid.Row="3" Margin="5" Source="/Assets/divider@3x.png" VerticalAlignment="Top"  Stretch="Uniform" />
-                                    <TextBlock  Grid.Row="4" Text="{Binding Desert}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" TextAlignment="Center" Margin="5" />
+                                    <TextBlock  Grid.Row="4" Text="{Binding Desert}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5" />
                                     <Image      Grid.Row="5" Margin="5" Source="/Assets/divider@3x.png" VerticalAlignment="Top"  Stretch="Uniform" />
-                                    <TextBlock  Grid.Row="6" Text="{Binding Price}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" TextAlignment="Center" Margin="5" />
-                            </Grid>
-                            </ScrollViewer>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                    <TextBlock  Grid.Row="6" Text="{Binding Price}" FontFamily="{StaticResource CustomFontBrandonMed}" FontSize="25" Foreground="Black" TextAlignment="Center" Margin="5" />
+                                    <Image      Grid.Row="7" Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
                 <TextBlock HorizontalAlignment="Center" Text="Keine Menüs gefunden" FontFamily="{StaticResource CustomFontBrandonLight}" Foreground="Gray" Margin="20"  Visibility="{Binding MenuItems, Converter={StaticResource NoMenuItemsVisibilityConverter}}"/>
-                <Image Margin="5" Source="/Assets/separatorLine@3x.png" VerticalAlignment="Top"  Stretch="Fill" />
-            </StackPanel>
+           </StackPanel>
         </Grid>
     </Grid>
 

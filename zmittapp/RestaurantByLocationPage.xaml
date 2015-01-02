@@ -46,8 +46,8 @@
             </Grid.RowDefinitions>
             
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <ScrollViewer>
-                    <ListView ItemsSource="{Binding Restaurants}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" VerticalContentAlignment="Center" >
+                <ScrollViewer Height="500" VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding Restaurants}" IsItemClickEnabled="True" ItemClick="ItemView_ItemClick" VerticalContentAlignment="Top" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid >

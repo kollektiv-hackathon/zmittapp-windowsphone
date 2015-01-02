@@ -19,11 +19,6 @@ namespace zmittapp.ViewModel
         private List<Restaurant> _restaurants;
         private List<Restaurant> _originalRestaurants;
 
-        private float _currentLatitude;
-        private float _currentLongitude;
-
-        private Geocoordinate _currentCoordinates; 
-
         private string _keyword;
 
 
@@ -79,7 +74,9 @@ namespace zmittapp.ViewModel
                 }
             }
         }
-        
+
+
+        //TODO: -> ServiceProxy
         public async Task GetRestaurants()
         {
             using (HttpClient client = new HttpClient())

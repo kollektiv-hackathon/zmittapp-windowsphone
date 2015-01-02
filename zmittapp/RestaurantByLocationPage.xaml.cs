@@ -63,9 +63,11 @@ namespace zmittapp
             this.pg.IsIndeterminate = true; 
             var model = this.DataContext as RestaurantByLocationViewModel;
             await model.GetCurrentLocation();
+            this.pg.IsIndeterminate = false;
+            this.pg.Visibility = Visibility.Collapsed;
             await model.GetRestaurants();
             model.FilterRestaurantByLocation();
-            this.pg.IsIndeterminate = false; 
+            
             
         }
 

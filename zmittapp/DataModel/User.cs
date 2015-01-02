@@ -13,7 +13,7 @@ namespace zmittapp.DataModel
     public class User 
     {
         private string _uid;
-        private ObservableCollection<Restaurant> _subscriptions;
+        private List<Restaurant> _subscriptions;
         private Geocoordinate _currentLocation; 
 
         public string Uid
@@ -25,11 +25,11 @@ namespace zmittapp.DataModel
             }
         }
 
-        public ObservableCollection<Restaurant> Subscriptions
+        public List<Restaurant> Subscriptions
         {
             get
             {
-                if (_subscriptions == null) _subscriptions = new ObservableCollection<Restaurant>(); 
+                if (_subscriptions == null) _subscriptions = new List<Restaurant>(); 
 
                 return _subscriptions; 
             }
